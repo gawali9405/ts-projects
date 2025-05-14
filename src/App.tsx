@@ -5,14 +5,20 @@ function App() {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("Sandip");
 
+  const handleChange = () => {
+    if (count === 100) {
+      alert("The max value of count is 100");
+      return;
+    }
+    setCount((count) => count + 10);
+  };
+
   return (
     <>
       <h1>React Counter</h1>
       <div className="card">
         <h1>{count}</h1>
-        <button onClick={() => setCount((count) => count + 10)}>
-          Add Counter
-        </button>
+        <button onClick={handleChange}>Add Counter</button>
         <button onClick={() => setCount((count) => count - 10)}>
           Remove Counter
         </button>
