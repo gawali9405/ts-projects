@@ -6,11 +6,11 @@ function App() {
   const [name, setName] = useState("Sandip");
 
   const handleChange = () => {
-    if (count === 100) {
-      alert("The max value of count is 100");
+    if (count === 100) { 
+       alert("The value cannot go beyond 100");
       return;
     }
-    setCount((count) => count + 10);
+    setCount((count) => count + 20);
   };
 
   return (
@@ -19,7 +19,7 @@ function App() {
       <div className="card">
         <h1>{count}</h1>
         <button onClick={handleChange}>Add Counter</button>
-        <button onClick={() => setCount((count) => count - 10)}>
+        <button onClick={() => setCount((count) => count - 20)}>
           Remove Counter
         </button>
       </div>
