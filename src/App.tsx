@@ -21,12 +21,17 @@ function App() {
     setCount((count) => count - 20);
   };
 
+  const handleReset =()=>{
+    setCount(0)
+  }
+
   return (
     <>
       <h1>React Counter</h1>
       <div className="card">
         <h1>{count}</h1>
         <button onClick={handleAddChange}>Add Counter</button>
+        <button onClick={handleReset}>Reset</button>
         <button onClick={handleRemoveChange}>Remove Counter</button>
       </div>
       <h1>{name}</h1>
