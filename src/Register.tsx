@@ -1,64 +1,98 @@
 import { useState } from "react";
 
-function Register() {
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+type Props = {
+  onProductType?: (newType: string) => void;
+};
 
-  const [show, setShow] = useState("");
+function Register({ onProductType }: Props) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [output, setOutput] = useState("");
 
-  const handleRegChange = (e) => {
-    setData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  const handleRegister = () => {
+    const registerData = { name, email, password, confirmPassword };
+    const result = JSON.stringify(registerData);
+    setOutput(result);
+    onProductType?.(result);
   };
 
-  const handleRegReset = () => {
-    setData({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "name") {
+      setName(value);
+    } else if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    } else if (name === "confirmPassword") {
+      setConfirmPassword(value);
+    }
   };
 
-  const handleRegSubmit = () => {
-    setShow(JSON.stringify(data));
+  const handleReset = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setOutput("");
+    onProductType?.("");
   };
 
   return (
-    <>
-      <div>
-        <h2>Register From</h2>
-        <p>Name : {data.name}</p>
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" onChange={handleRegChange} />
-        <br />
-        <p>Email : {data.email}</p>
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" onChange={handleRegChange} />
-        <br />
-        <p>Password : {data.password}</p>
-        <label htmlFor="password">password</label>
-        <input type="password" name="password" onChange={handleRegChange} />
-        <br />
-        <p>confirmPassword : {data.confirmPassword}</p>
-        <label htmlFor="confirmPassword">confirmPassword</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          onChange={handleRegChange}
-        />
-        <br />
-        <p>{show}</p>
-        <button onClick={handleRegReset}>Reset</button>
-        <button onClick={handleRegSubmit}>Register</button>
-      </div>
-    </>
+    <div>
+      <h2>Register Form</h2>
+
+      <label>Name: {name}</label>
+      <br />
+      <input
+        type="text"
+        name="name"
+        value={name}
+        onChange={handleChange}
+        placeholder="Enter your name"
+      />
+      <br />
+
+      <label>Email: {email}</label>
+      <br />
+      <input
+        type="email"
+        name="email"
+        value={email}
+        onChange={handleChange}
+        placeholder="Enter your email"
+      />
+      <br />
+
+      <label>Password: {password}</label>
+      <br />
+      <input
+        type="password"
+        name="password"
+        value={password}
+        onChange={handleChange}
+        placeholder="Enter password"
+      />
+      <br />
+
+      <label>Confirm Password: {confirmPassword}</label>
+      <br />
+      <input
+        type="password"
+        name="confirmPassword"
+        value={confirmPassword}
+        onChange={handleChange}
+        placeholder="Confirm password"
+      />
+      <br />
+
+      <button onClick={handleReset}>Reset</button>
+      <button onClick={handleRegister}>Register</button>
+
+      <p>{output}</p>
+    </div>
   );
 }
 

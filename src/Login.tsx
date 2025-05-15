@@ -1,68 +1,65 @@
-import { useState } from "react";
+ import { useState } from "react";
 
 type Props = {
-  productTypeValue?: string;
   onProductTypeChange?: (newType: string) => void;
 };
 
-function Login({ productTypeValue, onProductTypeChange }: Props) {
-  const [data, setData] = useState({
-    userName: "",
-    password: "",
-  });
-  const [show, setShow] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+function Login({ onProductTypeChange }: Props) {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [output, setOutput] = useState("");
 
   const handleLogin = () => {
-    setShow(JSON.stringify(data));
-    if (onProductTypeChange) { 
-      onProductTypeChange(JSON.stringify(data));
+    const loginData = { userName, password };
+    const result = JSON.stringify(loginData);
+    setOutput(result);
+    onProductTypeChange?.(result);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "userName") {
+      setUserName(value);
+    } else if (name === "password") {
+      setPassword(value);
     }
   };
 
   const handleReset = () => {
-    setData({
-      userName: "",
-      password: "",
-    });
-    setShow("");
-    if (onProductTypeChange) {
-      onProductTypeChange("");
-    }
+    setUserName("");
+    setPassword("");
+    setOutput("");
+    onProductTypeChange?.("");
   };
 
   return (
     <div>
       <h2>Login Form</h2>
-      <p>UserName : {data.userName}</p> <br />
-      <label htmlFor="userName">UserName </label>
+
+      <label>UserName:{userName} </label><br/>
       <input
         type="text"
-        placeholder="Enter your username"
         name="userName"
-        value={data.userName}
+        placeholder="Enter your username"
+        value={userName}
         onChange={handleChange}
       />
       <br />
-      <p>Password : {data.password}</p>
-      <label htmlFor="password">Password</label>
+
+      <label>Password:{password} </label><br/>
       <input
         type="password"
-        placeholder="Enter your password"
         name="password"
-        value={data.password}
+        placeholder="Enter your password"
+        value={password}
         onChange={handleChange}
       />
       <br />
+
       <button onClick={handleReset}>Reset</button>
       <button onClick={handleLogin}>Login</button>
-      <p>{show}</p>
+
+      <p>{output}</p>
     </div>
   );
 }

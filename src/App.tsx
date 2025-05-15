@@ -1,17 +1,25 @@
 import { useState } from "react";
 import "./App.css";
 import Login from "./Login";
+import Register from "./Register";
 
 function App() {
-  const [dataFromChild, setDataFromChild] = useState("");
+  const [dataFromLogin, setDataFromLogin] = useState("");
+  const [dataFromRegister, setDataFromRegister] = useState("");
 
   return (
     <>
-      <h2>Data from Child: {dataFromChild}</h2>
-      <Login
-        productTypeValue={dataFromChild}
-        onProductTypeChange={setDataFromChild}
-      />
+      <div>
+        <h2>Data from Login:</h2>
+        <p>{dataFromLogin}</p>
+        <Login onProductTypeChange={setDataFromLogin} />
+      </div>
+
+      <div>
+        <h2>Data from Register:</h2>
+        <p>{dataFromRegister}</p>
+        <Register onProductType={setDataFromRegister} />
+      </div>
     </>
   );
 }
