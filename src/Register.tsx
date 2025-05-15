@@ -1,10 +1,6 @@
 import { useState } from "react";
-
-type Props = {
-  onProductType?: (newType: string) => void;
-};
-
-function Register({ onProductType }: Props) {
+ 
+function Register({ onProductType }:{onProductType?: (newType: string) => void} ) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

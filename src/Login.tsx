@@ -1,10 +1,6 @@
- import { useState } from "react";
+import { useState } from "react";
 
-type Props = {
-  onProductTypeChange?: (newType: string) => void;
-};
-
-function Login({ onProductTypeChange }: Props) {
+function Login({ onProductTypeChange }: {onProductTypeChange?: (newType: string) => void}) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [output, setOutput] = useState("");
